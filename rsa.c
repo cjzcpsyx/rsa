@@ -170,6 +170,8 @@ int rsa_key_load_public(const char *filename, struct rsa_key *key)
 void rsa_encrypt(mpz_t c, const mpz_t m, const struct rsa_key *key)
 {
 	/* TODO */
+	mpz_powm(c, m, key->e, key->n);
+
 }
 
 /* Compute the decryption of c under the given key and store the result in m.

@@ -58,8 +58,30 @@ static char *decode(const mpz_t x, size_t *len)
 static int encrypt_mode(const char *key_filename, const char *message)
 {
 	/* TODO */
-	fprintf(stderr, "encrypt not yet implemented\n");
-	return 1;
+	// declare variables
+	struct rsa_key key;
+	mpz_t c, m;
+
+	// init variables
+	rsa_key_init(&key);
+	mpz_init(c);
+	mpz_init(m);
+
+	if (rsa_key_load_public(key_filename, &key) != 0) {
+		return -1;
+	}
+
+	encode(m, message);
+
+	rsa_encrypt(c, m, &key);
+	int result = mpz_get_ui(c);
+	
+	// clear variables
+	rsa_key_clear(&key);
+	mpz_clear(c);
+	mpz_clear(m);
+
+	return result;
 }
 
 /* The "decrypt" subcommand. c_str should be the string representation of an
