@@ -67,21 +67,26 @@ static int encrypt_mode(const char *key_filename, const char *message)
 	mpz_init(c);
 	mpz_init(m);
 
+	// load public key, if fails return 1
 	if (rsa_key_load_public(key_filename, &key) != 0) {
-		return -1;
+		return 1;
 	}
 
+	// encode message into m
 	encode(m, message);
 
+	// encrypt
 	rsa_encrypt(c, m, &key);
-	int result = mpz_get_ui(c);
-	
+
+	// print out result
+	gmp_printf("%Zd\n", c);
+
 	// clear variables
 	rsa_key_clear(&key);
 	mpz_clear(c);
 	mpz_clear(m);
 
-	return result;
+	return 0;
 }
 
 /* The "decrypt" subcommand. c_str should be the string representation of an
@@ -92,8 +97,36 @@ static int encrypt_mode(const char *key_filename, const char *message)
 static int decrypt_mode(const char *key_filename, const char *c_str)
 {
 	/* TODO */
-	fprintf(stderr, "decrypt not yet implemented\n");
-	return 1;
+	// declare variables
+	struct rsa_key key;
+	mpz_t c, m;
+
+	// init variables
+	rsa_key_init(&key);
+	mpz_init(c);
+	mpz_init(m);
+
+	// load private key, if fails return 1
+	if (rsa_key_load_private(key_filename, &key) != 0) {
+		return 1;
+	}
+
+	// parse ciphertext into c
+	mpz_set_str(c, c_str, 10);
+	
+	// decrypt
+	rsa_decrypt(m, c, &key);
+
+	// print out result
+	char *result = decode(m, NULL);
+	printf("%s\n", result);
+
+	// clear variables
+	rsa_key_clear(&key);
+	mpz_clear(c);
+	mpz_clear(m);
+
+	return 0;
 }
 
 /* The "genkey" subcommand. numbits_str should be the string representation of
