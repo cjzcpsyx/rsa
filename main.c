@@ -79,7 +79,7 @@ static int encrypt_mode(const char *key_filename, const char *message)
 	rsa_encrypt(c, m, &key);
 
 	// print out result
-	gmp_printf("%Zd\n", c);
+	gmp_printf("%Zd", c);
 
 	// clear variables
 	rsa_key_clear(&key);
@@ -100,6 +100,7 @@ static int decrypt_mode(const char *key_filename, const char *c_str)
 	// declare variables
 	struct rsa_key key;
 	mpz_t c, m;
+	char *result;
 
 	// init variables
 	rsa_key_init(&key);
@@ -118,13 +119,14 @@ static int decrypt_mode(const char *key_filename, const char *c_str)
 	rsa_decrypt(m, c, &key);
 
 	// print out result
-	char *result = decode(m, NULL);
-	printf("%s\n", result);
+	result = decode(m, NULL);
+	printf("%s", result);
 
 	// clear variables
 	rsa_key_clear(&key);
 	mpz_clear(c);
 	mpz_clear(m);
+	free(result);
 
 	return 0;
 }
@@ -137,7 +139,11 @@ static int decrypt_mode(const char *key_filename, const char *c_str)
 static int genkey_mode(const char *numbits_str)
 {
 	/* TODO */
-	fprintf(stderr, "genkey not yet implemented\n");
+	struct rsa_key key;
+
+	rsa_key_init(&key);
+
+	rsa_genkey(&key, )
 	return 1;
 }
 
