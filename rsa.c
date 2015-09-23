@@ -188,20 +188,20 @@ void rsa_decrypt(mpz_t m, const mpz_t c, const struct rsa_key *key)
 static void generate_prime(mpz_t p, unsigned int numbits)
 {
 	/* TODO */
-	char *data;
-	data = malloc(numbits / 8);
-	FILE *fp;
-	fp = fopen("/dev/urandom", "r");
-	if (fp == NULL) {
-		abort();
-	}
-	do {
-		fread(&data, 1, numbits / 8, fp);
-		data = data | 0xc0;
-		mpz_import(p, strlen(data), 1, 1, 0, 0, data);
-	} while (mpz_probab_prime_p(p) != 2);
-	fclose(fp);
-	free(data);
+	// char *data;
+	// data = malloc(numbits / 8);
+	// FILE *fp;
+	// fp = fopen("/dev/urandom", "r");
+	// if (fp == NULL) {
+	// 	abort();
+	// }
+	// do {
+	// 	fread(&data, 1, numbits / 8, fp);
+	// 	data = data | 0xc0;
+	// 	mpz_import(p, strlen(data), 1, 1, 0, 0, data);
+	// } while (mpz_probab_prime_p(p) != 2);
+	// fclose(fp);
+	// free(data);
 }
 
 /* Generate an RSA key. The base-2 logarithm of the modulus n will lie in the
@@ -209,19 +209,19 @@ static void generate_prime(mpz_t p, unsigned int numbits)
 void rsa_genkey(struct rsa_key *key, unsigned int numbits)
 {
 	/* TODO */
-	mpz_t p, q, n, e, d;
-	mpz_init(p);
-	mpz_init(q);
-	mpz_init(n);
-	mpz_init(e);
-	mpz_init(d);
+	// mpz_t p, q, n, e, d;
+	// mpz_init(p);
+	// mpz_init(q);
+	// mpz_init(n);
+	// mpz_init(e);
+	// mpz_init(d);
 
-	generate_prime(p, numbits / 2);
-	generate_prime(q, numbits / 2);
+	// generate_prime(p, numbits / 2);
+	// generate_prime(q, numbits / 2);
 
-	mpz_clear(p);
-	mpz_clear(q);
-	mpz_clear(n);
-	mpz_clear(e);
-	mpz_clear(d);
+	// mpz_clear(p);
+	// mpz_clear(q);
+	// mpz_clear(n);
+	// mpz_clear(e);
+	// mpz_clear(d);
 }

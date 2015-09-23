@@ -139,11 +139,11 @@ static int decrypt_mode(const char *key_filename, const char *c_str)
 static int genkey_mode(const char *numbits_str)
 {
 	/* TODO */
-	struct rsa_key key;
+	// struct rsa_key key;
 
-	rsa_key_init(&key);
+	// rsa_key_init(&key);
 
-	rsa_genkey(&key, )
+	// rsa_genkey(&key, )
 	return 1;
 }
 
