@@ -199,6 +199,7 @@ static void generate_prime(mpz_t p, unsigned int numbits)
 		data[0] = data[0] | 0xc0;
 		mpz_import(p, numbits / 8, 1, 1, 0, 0, data);
 	} while (mpz_probab_prime_p(p, 25) != 1);
+	free(data);
 	fclose(fp);
 
 }
