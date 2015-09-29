@@ -1,0 +1,6 @@
+1. 
+
+
+
+
+2. Encrypting the message "roll on you bears" results in the same encryption both times, 40507146565317917026445836899311361879. Should an attacker realize this pattern, given that the encryption is the same every time, they could use that information to decrypt it, especially in situations where the message is very small, like "0" or "1".
